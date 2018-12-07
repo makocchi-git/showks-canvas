@@ -10,14 +10,11 @@ RUN apk add --no-cache \
     jpeg-dev
 RUN npm install canvas --only=production
 
-# Stage 1
-FROM node:8-alpine
-
 # Create app directory
 WORKDIR /usr/src/app
 
 # Copy built modules
-COPY --from=0 /build/node_modules ./node_modules
+RUN cp -r /build/node_modules ./node_modules
 
 # Install app dependencies (production only)
 RUN apk add --no-cache \
